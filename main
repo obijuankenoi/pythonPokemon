@@ -1,18 +1,98 @@
 #Pokemon type game
 import random
-def randNum(min,max):
-    random.randInt(min,max)
-print("You encounter a wild pokemon!")
-print("You can Attack, Defend, Bag, Flee.")
-pMove = input().capitalize()
-if(pMove == "Attack"):
-    print("You Attack")
-elif(pMove == "Defend"):
-    print("You defend.")
-elif(pMove == "Bag"):
-    print("You open your bag.")
-elif(pMove == "Flee"):
-    if(randNum(0,3) == 2):
-        print("You escape!")
-    else:
-        print("You failed to escape.")
+def spacer(num):
+    for i in range(num):
+        print("*",end="")
+#Names of Pokemons
+playerPoke = ["Piplup"]
+playerMoves = ["Peck", "Water Gun"]
+playerMoveDmg = [20,30]
+pokemon = ["Charmander","Bulbasaur","Squirtle"]
+#Player bag
+Bag = []
+#Pokemon Types
+Type = []
+Fire = ["Ember","Flamethrower"]
+FireDmg = [30,50]
+Grass = ["Leaf Blade", "Magical Leaf"]
+GrassDmg = [40,40]
+Water = ["Bubbles","Hydro Pump"]
+WaterDmg = [20,80]
+randPoke = pokemon[random.randint(0,len(pokemon)-1)]
+randInt = random.randint(0,2)
+#Player Stats
+pHealth = 100
+pDefense = random.randint(0,10)
+pSpeed = random.randint(1,50)
+#Pokemon Stats
+cHealth = 100
+cDefense = random.randint(0,5)
+cSpeed = random.randint(1,50)
+print("You encounter a wild",randPoke,"!")
+cPoke = randPoke
+if(cPoke == "Charmander"):
+    Type = Fire
+    cDmg = FireDmg
+elif(cPoke == "Bulbasaur"):
+    Type = Grass
+    cDmg = GrassDmg
+elif(cPoke == "Squirtle"):
+    Type = Water
+    cDmg = WaterDmg
+while(pHealth > 0 and cHealth > 0):
+    spacer(20)
+    print("\nYour health:",pHealth)
+    print(cPoke,"health:",cHealth)
+    spacer(20)
+    print("\nYou can Attack, Bag, Flee.")
+    pMove = int(input())
+    if(pMove == 1):
+        print("You Attack\nWhat move do you use?")
+        print(playerMoves)
+        playerMove = int(input())-1
+        if(pSpeed > cSpeed):
+            if(cDefense > playerMoveDmg[playerMove]):
+                print(cPoke,"blocked the attack!")
+            else:
+                print("\nYou used",playerMoves[playerMove])
+                if (randInt == 0):
+                    print("You missed!")
+                else:
+                    dmg = playerMoveDmg[playerMove] - cDefense
+                    print("You deal",dmg)
+                    cHealth -= dmg
+                    randNum = random.randint(0,len(Type)-1)
+                    cMove = Type[randNum]
+                    print(cPoke,"uses",cMove)
+                    if(randInt == 1):
+                        print(cPoke,"missed!")
+                    else:
+                        dmg = cDmg[randNum] - pDefense
+                        print(cPoke,"deals",dmg,"\n")
+                        pHealth -= dmg
+        else:
+            if(pDefense > cDmg[random.randint(0,len(cDmg)-1)]):
+                print("You blocked the attack!")
+            else:
+                randNum = random.randint(0,len(Type)-1)
+                cMove = Type[randNum]
+                print("\n",cPoke,"uses",cMove)
+                if (randInt == 1):
+                    print(cPoke,"missed!")
+                else:
+                    dmg = cDmg[randNum] - pDefense
+                    print(cPoke,"deals",dmg,"\n")
+                    pHealth -= dmg
+                    print("You used",playerMoves[playerMove])
+                    if(randInt == 0):
+                        print("You missed!")
+                    else:
+                        dmg = playerMoveDmg[playerMove] - cDefense
+                        print("You deal",dmg,"damage!")
+                        cHealth -= dmg
+    elif(pMove == 3):
+        if(randInt == 1):
+            print("You escape!")
+        else:
+            print("You failed to escape.")
+            print(cPoke,"uses",)
