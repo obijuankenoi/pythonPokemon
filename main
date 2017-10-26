@@ -1,0 +1,18 @@
+#Pokemon type game
+import random
+def randNum(min,max):
+    random.randInt(min,max)
+print("You encounter a wild pokemon!")
+print("You can Attack, Defend, Bag, Flee.")
+pMove = input().capitalize()
+if(pMove == "Attack"):
+    print("You Attack")
+elif(pMove == "Defend"):
+    print("You defend.")
+elif(pMove == "Bag"):
+    print("You open your bag.")
+elif(pMove == "Flee"):
+    if(randNum(0,3) == 2):
+        print("You escape!")
+    else:
+        print("You failed to escape.")
